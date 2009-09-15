@@ -1,0 +1,48 @@
+#!/usr/bin/env python
+
+import re
+
+class Conf(object):
+
+  def __init__(self):
+    self.objects = []
+    self.capacity = 0
+
+  def read_file(self, filename):
+    f = open(filename, 'r')
+
+    for line in f.readlines():
+      result = re.match("^capacity=(\d+)$", line)
+      if result:
+        self.capacity = int(result.group(1))
+      else:
+        result = re.match("^\((\d+)\s*,\s*(\d+)\)$", line)
+        if result:
+          item = (int(result.group(1)), int(result.group(2)))
+          self.objects.append(item)
+        else:
+          raise Exception("Config error: invalid item")
+
+    return (self.objects, self.capacity)
+
+
+class Exhaust(object):
+
+  def __init__(self):
+    pass
+
+  def all_combinations(self, indices):
+    return self.get_all_combinations([ [i] for i in indices ])
+
+  def get_all_combinations(self, indices):
+    if indices == []:
+      return []
+
+    if len(indices) == 1:
+      return indices
+
+    head = indices[0]
+    tail = indices[1:]
+
+    combos = self.get_all_combinations(tail)
+    return [head] + [ head + k for k in combos ] + combos
