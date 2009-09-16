@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 # definite kill! double compile!
 
+# usage>
+# [~/hack/knapsack]:$> python hack/generate_input.py > input/small.txt 2> input/small.solution
+
 import sys, random
 
 def weight_of_solution(solution):
