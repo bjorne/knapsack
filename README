@@ -1,1 +1,5 @@
-The knapsack is about to be filled.
+The knapsack is full!
+
+[~/hack/knapsack]:$> python knapsack.py input/referenceExample.txt
+solution of weight 9, value 29 found:
+(3, 13), (1, 4), (5, 12)

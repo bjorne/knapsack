@@ -8,7 +8,6 @@ class Conf(object):
     self.objects = []
     self.capacity = 0
 
-  # TODO: generator.
   def read_file(self, filename):
     f = open(filename, 'r')
 
@@ -32,14 +31,40 @@ class Exhaust(object):
   def __init__(self):
     pass
 
+  def solve(self, filename):
+      conf = Conf().read_file(filename)
+      return self.optimal_knapsack(conf)
+
   def optimal_knapsack(self, conf):
       items, capacity = conf
+      best = 0
       opt = []
-      return opt
+      for idx in self.all_combinations(range(0,len(items))):
+        solution = map(lambda i: items[i], idx)
+        w = self.weight_of_solution(solution)
+        v = self.value_of_solution(solution)
+        if w <= capacity and v > best:
+            best = v
+            opt = solution
+      return opt, self.weight_of_solution(opt), self.value_of_solution(opt)
+
+  def weight_of_solution(self, solution):
+      weight = 0
+      for item in solution:
+          weight += item[0]
+      return weight
+
+  def value_of_solution(self, solution):
+      value = 0
+      for item in solution:
+          value += item[1]
+      return value
+
 
   def all_combinations(self, indices):
     return self.__get_all_combinations__([ [i] for i in indices ])
 
+  # problem for large inputs> RuntimeError: maximum recursion depth exceeded in cmp
   def __get_all_combinations__(self, indices):
     if indices == []:
       return []

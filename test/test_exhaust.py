@@ -19,7 +19,6 @@ class TestConfig(unittest.TestCase):
 
       c = Conf()
       conf_knapsack = c.read_file('../input/referenceExample.txt')
-
       self.assertEqual(conf_knapsack, knapsack)
 
       self.assertRaises(Exception, c.read_file, './input/faulty.txt')
@@ -41,20 +40,29 @@ class TestExhaust(unittest.TestCase):
 
     self.assertEquals(ret, allpossibilities)
 
+  def test_weight_of_solution(self):
+      expected = 10
+      solution = [(2,5),(3,4),(5,10)]
+      self.assertEquals(self.e.weight_of_solution(solution), expected)
+
+  def test_value_of_solution(self):
+      expected = 19
+      solution = [(2,5),(3,4),(5,10)]
+      self.assertEquals(self.e.value_of_solution(solution), expected)
+
   def test_find_best_knapsack(self):
     c = Conf()
     confknapsack = c.read_file('../input/referenceExample.txt')
 
     optset, size, value = self.e.optimal_knapsack(confknapsack)
 
-    assertEqual(size, 9)
-    assertEqual(value, 9)
+    self.assertEquals(size, 9)
+    self.assertEquals(value, 29)
 
+    goal = [(3,13), (1,4), (5,12)]
+    goal.sort()
     optset.sort()
-    goal = [(1,4), (3,13), (5,12)]
-    goal.sort() # not needed
-
-    assertEqual(optset, goal)
+    self.assertEquals(optset, goal)
 
 if __name__ == '__main__':
     unittest.main()
