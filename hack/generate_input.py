@@ -52,8 +52,8 @@ def generate_random_items(num_items, max_value_per_weight_ratio):
         max_w = int(max_value_per_weight_ratio/v)
         w = random.randint(min(1,max_w), max_w)
         items.append((w,v))
-    print >> sys.stderr, "generated %d random items with total size %d and value %d" \
-            % (num_items, weight_of_solution(items), value_of_solution(items))
+#    print >> sys.stderr, "generated %d random items with total size %d and value %d" \
+#            % (num_items, weight_of_solution(items), value_of_solution(items))
     return items
 
 
