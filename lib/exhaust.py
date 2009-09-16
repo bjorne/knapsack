@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-import re
+import sys, re
 
 class Conf(object):
 
@@ -62,9 +62,34 @@ class Exhaust(object):
 
 
   def all_combinations(self, indices):
-    return self.__get_all_combinations__([ [i] for i in indices ])
+    combos = []
+    for r in range(1, len(indices)+1):
+        for c in self.combinations(indices, r):
+            yield(list(c))
+
+  # from http://docs.python.org/library/itertools.html#itertools.combinations - available from itertools in >= 2.6
+  def combinations(self, iterable, r):
+      # combinations('ABCD', 2) --> AB AC AD BC BD CD
+      # combinations(range(4), 3) --> 012 013 023 123
+      pool = tuple(iterable)
+      n = len(pool)
+      if r > n:
+          return
+      indices = range(r)
+      yield tuple(pool[i] for i in indices)
+      while True:
+          for i in reversed(range(r)):
+              if indices[i] != i + n - r:
+                  break
+          else:
+              return
+          indices[i] += 1
+          for j in range(i+1, r):
+              indices[j] = indices[j-1] + 1
+          yield tuple(pool[i] for i in indices)
 
   # problem for large inputs> RuntimeError: maximum recursion depth exceeded in cmp
+  # DEPRECATED.
   def __get_all_combinations__(self, indices):
     if indices == []:
       return []

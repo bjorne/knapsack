@@ -3,3 +3,13 @@ The knapsack is full!
 [~/hack/knapsack]:$> python knapsack.py input/referenceExample.txt
 solution of weight 9, value 29 found:
 (3, 13), (1, 4), (5, 12)
+
+[~/hack/knapsack]:$> time python knapsack.py input/small.txt
+solution of weight 8, value 58 found:
+(5, 33), (2, 17), (1, 8)
+
+real	0m33.167s
+user	0m32.237s
+sys	    0m0.213s
+
+# (clearly not optimal for n=20)

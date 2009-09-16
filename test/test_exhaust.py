@@ -27,9 +27,9 @@ class TestExhaust(unittest.TestCase):
   def setUp(self):
     self.e = Exhaust()
 
-  def test_all_permutations(self):
+  def test_all_combinations(self):
     allpossibilities = [[1], [2], [3], [1,2], [2,3], [1,3], [1,2,3]]
-    ret = self.e.all_combinations([1,2,3])
+    ret = list(self.e.all_combinations([1,2,3])) # listify generator.
 
     # sort so that we can compare; we do not care about order.
     [combo.sort() for combo in allpossibilities]
