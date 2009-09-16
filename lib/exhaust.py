@@ -32,9 +32,9 @@ class Exhaust(object):
     pass
 
   def all_combinations(self, indices):
-    return self.get_all_combinations([ [i] for i in indices ])
+    return self.__get_all_combinations__([ [i] for i in indices ])
 
-  def get_all_combinations(self, indices):
+  def __get_all_combinations__(self, indices):
     if indices == []:
       return []
 
@@ -44,5 +44,5 @@ class Exhaust(object):
     head = indices[0]
     tail = indices[1:]
 
-    combos = self.get_all_combinations(tail)
+    combos = self.__get_all_combinations__(tail)
     return [head] + [ head + k for k in combos ] + combos
