@@ -8,6 +8,7 @@ class Conf(object):
     self.objects = []
     self.capacity = 0
 
+  # TODO: generator.
   def read_file(self, filename):
     f = open(filename, 'r')
 
@@ -30,6 +31,11 @@ class Exhaust(object):
 
   def __init__(self):
     pass
+
+  def optimal_knapsack(self, conf):
+      items, capacity = conf
+      opt = []
+      return opt
 
   def all_combinations(self, indices):
     return self.__get_all_combinations__([ [i] for i in indices ])
