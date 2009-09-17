@@ -42,10 +42,14 @@ class Exhaust(object):
       for idx in self.all_combinations(range(0,len(items))):
         solution = map(lambda i: items[i], idx)
         w = self.weight_of_solution(solution)
+        if w > capacity:
+          continue
+
         v = self.value_of_solution(solution)
-        if w <= capacity and v > best:
-            best = v
-            opt = solution
+        if v > best:
+          best = v
+          opt = solution
+
       return opt, self.weight_of_solution(opt), self.value_of_solution(opt)
 
   def weight_of_solution(self, solution):
@@ -59,7 +63,6 @@ class Exhaust(object):
       for item in solution:
           value += item[1]
       return value
-
 
   def all_combinations(self, indices):
     combos = []
@@ -87,18 +90,3 @@ class Exhaust(object):
           for j in range(i+1, r):
               indices[j] = indices[j-1] + 1
           yield tuple(pool[i] for i in indices)
-
-  # problem for large inputs> RuntimeError: maximum recursion depth exceeded in cmp
-  # DEPRECATED.
-  def __get_all_combinations__(self, indices):
-    if indices == []:
-      return []
-
-    if len(indices) == 1:
-      return indices
-
-    head = indices[0]
-    tail = indices[1:]
-
-    combos = self.__get_all_combinations__(tail)
-    return [head] + [ head + k for k in combos ] + combos
